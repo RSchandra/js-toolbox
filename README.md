@@ -9,7 +9,7 @@ Class based inheritance in the style of BackBone in JavaScript code for Node.js.
 
 index.js
 ----------
-Provides a primitive base class (Toolbox.Base) for class-based inheritance.
+Provides a primitive base class (Toolbox.Base) for class-based inheritance. Install with `npm install js-toolbox --save`.
 Based on code from Backbone (http://documentcloud.github.com/backbone/).
 
 	var Toolbox = require('js-toolbox');
