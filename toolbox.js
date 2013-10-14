@@ -1,7 +1,14 @@
+/**
+ * New node file
+ */
+
+
+var _extend = require('extend');
+var Toolbox = {};
+
 (function () {
     "use strict";
 
-    var Toolbox = window.Toolbox = {};
 
     // `ctor` and `inherits` are from Backbone (with some modifications):
     // http://documentcloud.github.com/backbone/
@@ -12,7 +19,7 @@
     // Helper function to correctly set up the prototype chain, for subclasses.
     // Similar to `goog.inherits`, but uses a hash of prototype properties and
     // class properties to be extended.
-    var inherits = function (parent, protoProps, staticProps) {
+    function inherits(parent, protoProps, staticProps) {
         var child;
 
         // The constructor function for the new subclass is either defined by you
@@ -25,7 +32,7 @@
         }
 
         // Inherit class (static) properties from parent.
-        _.extend(child, parent);
+        _extend(child, parent);
 
         // Set the prototype chain to inherit from `parent`, without calling
         // `parent`'s constructor function.
@@ -34,10 +41,10 @@
 
         // Add prototype properties (instance properties) to the subclass,
         // if supplied.
-        if (protoProps) _.extend(child.prototype, protoProps);
+        if (protoProps) _extend(child.prototype, protoProps);
 
         // Add static properties to the constructor function, if supplied.
-        if (staticProps) _.extend(child, staticProps);
+        if (staticProps) _extend(child, staticProps);
 
         // Correctly set child's `prototype.constructor`.
         child.prototype.constructor = child;
@@ -65,7 +72,8 @@
     //         someMethod: function () { ... }
     //     });
     //     var instance = new MyClass();
-    Toolbox.Base = function () {}
+    Toolbox.Base = function () {};
     Toolbox.Base.extend = extendThis;
 })();
 
+module.exports = Toolbox;
