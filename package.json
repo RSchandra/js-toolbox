@@ -24,6 +24,9 @@
   "dependencies": {
     "extend": "*"
   },
+  "scripts": {
+	    "test": "./test.js"
+  },
   "devDependencies": {},
   "bundleDependencies": [],
   "main": "index.js"
