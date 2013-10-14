@@ -26,6 +26,5 @@
   },
   "devDependencies": {},
   "bundleDependencies": [],
-  "private": true,
   "main": "index.js"
 }
