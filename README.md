@@ -1,7 +1,7 @@
 JS Toolbox
 ==========
 
-Author: Rich Hildred forked from Jimmy Do
+Author: Rich Hildred forked from [Jimmy Do](https://github.com/jimmydo/js-toolbox)
 License: MIT
 
 Class based inheritance in the style of BackBone in JavaScript code for Node.js.
