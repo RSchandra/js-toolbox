@@ -1,0 +1,31 @@
+{
+  "name": "js-toolbox",
+  "version": "1.0.0",
+  "description": "Provides a primitive base class for class-based inheritance for node.js",
+  "keywords": [
+    "Node.js",
+    "extend",
+    "inheritance"
+  ],
+  "author": {
+    "name": "Rich Hildred",
+    "email": "rhildred@gmail.com",
+    "url": "http://syndicateme.net/"
+  },
+  "homepage": "https://github.com/rhildred/js-toolbox",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhildred/js-toolbox.git"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "extend": "*"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "private": true,
+  "main": "index.js"
+}

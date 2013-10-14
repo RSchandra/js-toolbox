@@ -1,5 +1,5 @@
 /**
- * New node file
+ * js-toolbox ... Provides a primitive base class for class-based inheritance for node.js
  */
 
 
