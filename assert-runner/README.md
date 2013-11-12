@@ -9,6 +9,9 @@ Really light weight test runner based on node's builtin assert.
 
 TestRunner.js
 -------------
+
+`npm install assert-runner`
+
 Given a class TestClass under test:
 
 	var Toolbox = require('js-toolbox');
@@ -30,7 +33,7 @@ Given a class TestClass under test:
 
 TestClass can be tested using the following code (in test.js):
 
-	var TestRunner = require('./TestRunner.js'),
+	var TestRunner = require('TestRunner'),
 	assert = require('assert'),
 	TestClass = require('./classes/TestClass.js');
 	
@@ -60,9 +63,11 @@ TestClass can be tested using the following code (in test.js):
 	new TestRunner(tests).again(0);
 	
 If we run `node test.js` the output produced will be:
+
 	Passed Test: "TestClass constructor" 1 of 3
 	Passed Test: "TestClass synchronous" 2 of 3
 	Passed Test: "Test asynchronous" 3 of 3
 
 Depends on:
+
 - js-toolbox (https://github.com/rhildred/js-toolbox)
