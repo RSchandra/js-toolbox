@@ -1,7 +1,7 @@
 js-toolbox Node Modules
 =======================
 
-This is currently to npm modules that I have found useful in my community college javascript course.
+This is currently 2 npm modules that I have found useful in my community college javascript course.
 
 js-toolbox
 ----------
