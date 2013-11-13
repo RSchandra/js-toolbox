@@ -13,7 +13,7 @@
     "email": "rhildred@gmail.com",
     "url": "http://syndicateme.net/"
   },
-  "homepage": "https://github.com/rhildred/js-toolbox/assert-runner",
+  "homepage": "https://github.com/rhildred/js-toolbox/tree/master/render-async",
   "repository": {
     "type": "git",
     "url": "https://github.com/rhildred/js-toolbox.git"
@@ -23,7 +23,10 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
-    "js-toolbox": "*"
+	"express": "*",
+    "js-toolbox": "*",
+    "assert-runner": "*",
+    "extend": "*"
   },
   "scripts": {
 	    "test": "./test.js"
