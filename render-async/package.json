@@ -23,7 +23,6 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
-	"express": "*",
     "js-toolbox": "*",
     "assert-runner": "*",
     "extend": "*"
