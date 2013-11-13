@@ -1,0 +1,34 @@
+{
+  "name": "render-async",
+  "version": "1.0.0",
+  "description": "renders a template, possibly asynchronously with an object",
+  "keywords": [
+    "Node.js",
+    "render",
+    "express",
+    "template"
+  ],
+  "author": {
+    "name": "Rich Hildred",
+    "email": "rhildred@gmail.com",
+    "url": "http://syndicateme.net/"
+  },
+  "homepage": "https://github.com/rhildred/js-toolbox/assert-runner",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhildred/js-toolbox.git"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "js-toolbox": "*"
+  },
+  "scripts": {
+	    "test": "./test.js"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "main": "TestRunner.js"
+}
