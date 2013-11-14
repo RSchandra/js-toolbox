@@ -18,6 +18,23 @@ var tests = {
 			done();
 		});
 		
+	},		
+	"Test nested include": function(done){
+		renderFile(__dirname + '/examples/nestedinclude.js.html', {}, function(err, html){
+			assert(err == null);
+			assert(html == '<!Doctype html><body>included from _nestedincluded.js.html <div><p>Rob was here and Rich was here</p></div></body></html>');
+			done();
+		});
+		
+	},		
+	"Test layout": function(done){
+		renderFile(__dirname + '/examples/layout.js.html', {}, function(err, html){
+			assert(err == null);
+			console.log(html);
+			assert(html == '<!Doctype html><body>included from _nestedincluded.js.html <div><p>Rob was here and Rich was here</p></div></body></html>');
+			done();
+		});
+		
 	}		
 };
 

@@ -63,7 +63,8 @@ var RenderFileAsync = Toolbox.Base.extend({
 		}
 	},
 	include: function(sPath){
-		new RenderFileAsync(path.dirname(this.sPath) + '/' + sPath, this.oOptions, jQuery.proxy(function(err, html){
+		new RenderFileAsync(path.dirname(this.sPath) + '/' + sPath, this.oOptions, 
+				jQuery.proxy(function(err, html){
 			if(err)this.error(err);
 			this.sHtml += html;
 			this.parseToken(++this.nCur);
