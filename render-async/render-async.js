@@ -14,14 +14,17 @@ var RenderFileAsync = Toolbox.Base.extend({
 	sHtml: "",
 	sPath: null, 
 	nCur: 0,
+	sLayout: null,
 	constructor: function(path, options, callback){
 		this.sPath = path; 
-		if(typeof options == 'undefined') options = {};
-		if(typeof options.sBefore == 'undefined')options.sBefore = "<%";
-		if(typeof options.sAfter == 'undefined')options.sAfter = "%>";
-		if(typeof options.sPrint == 'undefined') options.sPrint = "=";
 		_extend(this.oOptions, options);
+		if(typeof this.oOptions == 'undefined') this.oOptions = {};
+		if(typeof this.oOptions.locals == 'undefined') this.oOptions.locals = {};
+		if(typeof this.oOptions.sBefore == 'undefined')this.oOptions.sBefore = "<%";
+		if(typeof this.oOptions.sAfter == 'undefined')this.oOptions.sAfter = "%>";
+		if(typeof this.oOptions.sPrint == 'undefined') this.oOptions.sPrint = "=";
 		this.oOptions.include = jQuery.proxy(this.include, this);
+		this.oOptions.layout = jQuery.proxy(this.layout, this);
 		if(typeof callback != 'undefined') this.callback = callback;
 		fs.readFile(path, jQuery.proxy(this.parseFile, this));
 	},
@@ -59,6 +62,17 @@ var RenderFileAsync = Toolbox.Base.extend({
 				this.parseToken(++this.nCur);
 			}
 		}else{
+			if(this.sLayout){
+				this.oOptions.body = this.sHtml;
+				this.sHtml = "";
+				debugger;
+				new RenderFileAsync(this.sLayout, this.oOptions, 
+						jQuery.proxy(function(err, html){
+					if(err)this.error(err);
+					if(this.callback) this.callback(null, html);
+				}, this));
+
+			}
 			if(this.callback) this.callback(null, this.sHtml);
 		}
 	},
@@ -69,6 +83,10 @@ var RenderFileAsync = Toolbox.Base.extend({
 			this.sHtml += html;
 			this.parseToken(++this.nCur);
 		}, this));
+	},
+	layout: function(sPath){
+		this.sLayout = path.dirname(this.sPath) + '/' + sPath;
+		this.parseToken(++this.nCur);
 	},
 	error: function(err){
 		console.log(err);
