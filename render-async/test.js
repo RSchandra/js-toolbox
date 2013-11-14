@@ -10,6 +10,14 @@ var tests = {
 			done();
 		});
 		
+	},
+	"Test include": function(done){
+		renderFile(__dirname + '/examples/include.js.html', {}, function(err, html){
+			assert(err == null);
+			assert(html == '<!Doctype html><body>included from _included.js.html <p>Rich was here</p></body></html>');
+			done();
+		});
+		
 	}		
 };
 

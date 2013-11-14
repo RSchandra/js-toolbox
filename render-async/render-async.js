@@ -2,6 +2,7 @@ var Toolbox = require('js-toolbox'),
 _extend = require('extend'),
 fs = require('fs'),
  _eval = require('eval'),
+ path = require('path'),
 jQuery = {};
 jQuery.proxy = require('nodeproxy');
 
@@ -12,6 +13,7 @@ var RenderFileAsync = Toolbox.Base.extend({
 	callback: null,
 	sHtml: "",
 	sPath: null, 
+	nCur: 0,
 	constructor: function(path, options, callback){
 		this.sPath = path; 
 		if(typeof options == 'undefined') options = {};
@@ -19,6 +21,7 @@ var RenderFileAsync = Toolbox.Base.extend({
 		if(typeof options.sAfter == 'undefined')options.sAfter = "%>";
 		if(typeof options.sPrint == 'undefined') options.sPrint = "=";
 		_extend(this.oOptions, options);
+		this.oOptions.include = jQuery.proxy(this.include, this);
 		if(typeof callback != 'undefined') this.callback = callback;
 		fs.readFile(path, jQuery.proxy(this.parseFile, this));
 	},
@@ -32,33 +35,42 @@ var RenderFileAsync = Toolbox.Base.extend({
                 this.aTokens.splice(i+1, 0, aTemp[1]);
             }
         }
-        this.parseToken(0);
+        this.parseToken();
 	},
-	parseToken: function(i)
+	parseToken: function()
 	{
-		if(i < this.aTokens.length){
-			var sToken = this.aTokens[i];
+		if(this.nCur < this.aTokens.length){
+			var sToken = this.aTokens[this.nCur];
 			if(sToken.substring(0,2) == this.oOptions.sBefore){
 				var sJavaScript = sToken.substring(2, sToken.length - 2);
 				var nLength = this.oOptions.sPrint.length;
 				var bPrinting = false;
 				if(sJavaScript.substring(0, nLength) == this.oOptions.sPrint){
 					bPrinting = true;
-					sJavaScript = sJavaScript.substring(nLength);
+					sJavaScript = "module.exports = " + sJavaScript.substring(nLength);
 				}
 				var sResults = _eval(sJavaScript, this.sPath, this.oOptions, false );
-				debugger;
-				if(bPrinting)this.sHtml += sResults.toString();
-				this.parseToken(++i);
+				if(bPrinting){
+					this.sHtml += sResults.toString();
+					this.parseToken(++this.nCur);
+				}
 			}else{
 				this.sHtml += sToken;
-				this.parseToken(++i);
+				this.parseToken(++this.nCur);
 			}
 		}else{
-			if(this.callback) this.callback(this.sHtml);
+			if(this.callback) this.callback(null, this.sHtml);
 		}
 	},
+	include: function(sPath){
+		new RenderFileAsync(path.dirname(this.sPath) + '/' + sPath, this.oOptions, jQuery.proxy(function(err, html){
+			if(err)this.error(err);
+			this.sHtml += html;
+			this.parseToken(++this.nCur);
+		}, this));
+	},
 	error: function(err){
+		console.log(err);
 		if(this.callback) this.callback(err);
 	}
 });
