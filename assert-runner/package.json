@@ -1,6 +1,6 @@
 {
   "name": "assert-runner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "runs tests based on node's built in assert",
   "keywords": [
     "Node.js",

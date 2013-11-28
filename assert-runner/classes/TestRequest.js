@@ -1,11 +1,11 @@
-var Toolbox = require('js-toolbox');
+var Toolbox = require('js-toolbox').Toolbox;
 
 var TestRequest = Toolbox.Base.extend({
 	session: {},
 	protocol: "http",
 	url: "/login",
 	constructor: function(){
-		this.session.profile = {}
+		this.session.profile = {};
 		this.session.profile.id = "110056483553960735640";
 		return this;
 	},
@@ -14,5 +14,5 @@ var TestRequest = Toolbox.Base.extend({
 	}
 });
 
-module.exports = TestRequest;
+module.exports.TestRequest = TestRequest;
 

@@ -1,4 +1,4 @@
-var Toolbox = require('js-toolbox');
+var Toolbox = require('js-toolbox').Toolbox;
 
 var TestResponse = Toolbox.Base.extend({
 	sHead: "",
@@ -20,4 +20,4 @@ var TestResponse = Toolbox.Base.extend({
 	}	
 });
 
-module.exports = TestResponse;
+module.exports.TestResponse = TestResponse;

@@ -1,6 +1,6 @@
 var Toolbox = require('js-toolbox').Toolbox;
-var res = require('./classes/TestResponse.js');
-var req = require('./classes/TestRequest.js');
+var res = require('./classes/TestResponse.js').TestResponse;
+var req = require('./classes/TestRequest.js').TestRequest;
 
 var TestRunner = Toolbox.Base.extend({
 	oTests: null,

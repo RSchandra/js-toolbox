@@ -1,4 +1,4 @@
-var Toolbox = require('js-toolbox');
+var Toolbox = require('js-toolbox').Toolbox;
 
 var TestClass = Toolbox.Base.extend({
 	constructor: function(){
