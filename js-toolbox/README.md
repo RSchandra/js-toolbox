@@ -30,7 +30,7 @@ Based on code from Backbone (http://documentcloud.github.com/backbone/).
 	var oAnimal = new Animal("Tony the Tiger");
 	assert(oAnimal.sayName() === 'Hi, my name is Tony the Tiger');
 
-js-toolbox can also be used in chrome or firefox [see browserTest.html.](https://github.com/rhildred/js-toolbox/blob/master/js-toolbox/browserTest.html). To use it in a browser I added require and module.exports implementations that are also usable in any file included after js-toolbox. To browserify js-toolbox I needed jQuery.extend, since I had it already I added it and jQuery.proxy and jQuery.ajax to my exports as `_jQuery`. If you wanted to use jQuery.ajax on node for instance you would use `var jQuery = require('js-toolbox')._jQuery;` 
+js-toolbox can also be used in a browser [see browserTest.html.](https://github.com/rhildred/js-toolbox/blob/master/js-toolbox/browserTest.html). To use it in a browser I added require and module.exports implementations that are also usable in any file included after js-toolbox. To browserify js-toolbox I needed jQuery.extend, since I had it already I added it and jQuery.proxy and jQuery.ajax to my exports as `_jQuery`. If you wanted to use jQuery.ajax on node for instance you would use `var jQuery = require('js-toolbox')._jQuery;` See the file [tests/index.js](https://github.com/rhildred/js-toolbox/blob/master/js-toolbox/test/index.js)
 
 Depends on:
 - extend (https://github.com/justmoon/node-extend)

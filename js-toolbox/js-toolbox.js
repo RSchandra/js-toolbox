@@ -27,21 +27,7 @@ if(typeof require == "undefined"){
 
 if(typeof module == "undefined"){
 	module = {};
-	if(typeof Proxy == "undefined"){
-		//then we only have one level of export
-		Object.defineProperty(module, "exports", {
-			set: function(value){
-				//we need to get the export on to the window
-				window[value] = value;
-			}
-		});
-	}else{
-		module.exports = new Proxy({}, {
-		    set: function(target, name, value) {
-		        window[name] = value;
-		    }
-		});
-	}
+	module.exports = {};
 }
 
 var Toolbox = {};
@@ -50,17 +36,17 @@ var Toolbox = {};
     "use strict";
 
 
-    // `ctor` and `inherits` are from Backbone (with some modifications):
-    // http://documentcloud.github.com/backbone/
-
-    // Shared empty constructor function to aid in prototype-chain creation.
-    var ctor = function () {};
 
     // Helper function to correctly set up the prototype chain, for subclasses.
     // Similar to `goog.inherits`, but uses a hash of prototype properties and
     // class properties to be extended.
     function inherits(parent, protoProps, staticProps) {
         var child;
+        // `ctor` and `inherits` are from Backbone (with some modifications):
+        // http://documentcloud.github.com/backbone/
+
+        // Shared empty constructor function to aid in prototype-chain creation.
+        var ctor = function () {};
 
         // The constructor function for the new subclass is either defined by you
         // (the "constructor" property in your `extend` definition), or defaulted

@@ -1,4 +1,5 @@
-var Toolbox = require('../index.js').Toolbox;
+var Toolbox = require('../js-toolbox.js').Toolbox;
+var jQuery = require('../js-toolbox.js')._jQuery;
 var assert = require('assert');
 
 var Animal = Toolbox.Base.extend({
@@ -39,6 +40,17 @@ var tests = {
     "third level inheritance with polymorphism": function (){
     	var oBengal = new BengalTiger();
     	assert(oBengal.sayName() === 'Hi, my name is Shere Khan and I am the true lord of the jungle!');
+    },
+    "test of jQuery.proxy": function(){
+    	var oBengal = new BengalTiger();
+    	var fCallBack = jQuery.proxy(oBengal.sayName, oBengal);
+    	assert(fCallBack() == 'Hi, my name is Shere Khan and I am the true lord of the jungle!');
+    },
+    "test of jQuery.ajax": function(done){
+    	jQuery.ajax("http://www.google.com").done(done)
+    	.fail(function(err){
+    		assert(true == false);
+    	});
     }
 };
 
