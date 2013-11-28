@@ -1,4 +1,4 @@
-var Toolbox = require('js-toolbox');
+var Toolbox = require('js-toolbox').Toolbox;
 var res = require('./classes/TestResponse.js');
 var req = require('./classes/TestRequest.js');
 

@@ -1,7 +1,7 @@
 {
   "name": "js-toolbox",
-  "version": "1.0.0",
-  "description": "Provides a primitive base class for class-based inheritance for node.js",
+  "version": "1.1.0",
+  "description": "Provides a primitive base class for class-based inheritance for node.js, as well as code to make this available in a browser",
   "keywords": [
     "Node.js",
     "extend",
@@ -22,12 +22,14 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
-    "extend": "*"
+    "extend": "*",
+    "nodeproxy": "*",
+    "najax": "*"
   },
   "scripts": {
 	    "test": "./test.js"
   },
   "devDependencies": {},
   "bundleDependencies": [],
-  "main": "index.js"
+  "main": "js-toolbox.js"
 }

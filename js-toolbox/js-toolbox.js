@@ -1,9 +1,49 @@
 /**
- * js-toolbox ... Provides a primitive base class for class-based inheritance for node.js
+ * jstoolbox ... Provides a primitive base class for class-based inheritance for node.js
+ *
+ * also provides shims to run node.js require and module.exports inside a browser
  */
 
+if(typeof require == "undefined"){
+	// then you will need to have included any dependency already in a script tag
+	require = function(value){
+		if(typeof window[value] == "undefined"){
+			// then the module's export is the name
+			return window;
+		}
+		else{
+			// then the module itself is the name
+			return window[value];			
+		}
+	};
+}else{
+	//then I want to require some extras into node and add them into the namespace under _jQuery
+	var jQuery = {};
+	jQuery.extend = require('extend');
+	jQuery.ajax = require('najax');
+	jQuery.proxy = require('nodeproxy');
+	module.exports._jQuery = jQuery; 
+}
 
-var _extend = require('extend');
+if(typeof module == "undefined"){
+	module = {};
+	if(typeof Proxy == "undefined"){
+		//then we only have one level of export
+		Object.defineProperty(module, "exports", {
+			set: function(value){
+				//we need to get the export on to the window
+				window[value] = value;
+			}
+		});
+	}else{
+		module.exports = new Proxy({}, {
+		    set: function(target, name, value) {
+		        window[name] = value;
+		    }
+		});
+	}
+}
+
 var Toolbox = {};
 
 (function () {
@@ -32,7 +72,7 @@ var Toolbox = {};
         }
 
         // Inherit class (static) properties from parent.
-        _extend(child, parent);
+        jQuery.extend(child, parent);
 
         // Set the prototype chain to inherit from `parent`, without calling
         // `parent`'s constructor function.
@@ -41,10 +81,10 @@ var Toolbox = {};
 
         // Add prototype properties (instance properties) to the subclass,
         // if supplied.
-        if (protoProps) _extend(child.prototype, protoProps);
+        if (protoProps) jQuery.extend(child.prototype, protoProps);
 
         // Add static properties to the constructor function, if supplied.
-        if (staticProps) _extend(child, staticProps);
+        if (staticProps) jQuery.extend(child, staticProps);
 
         // Correctly set child's `prototype.constructor`.
         child.prototype.constructor = child;
@@ -76,4 +116,4 @@ var Toolbox = {};
     Toolbox.Base.extend = extendThis;
 })();
 
-module.exports = Toolbox;
+module.exports.Toolbox = Toolbox;

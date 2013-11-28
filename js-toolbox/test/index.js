@@ -1,4 +1,4 @@
-var Toolbox = require('../index.js');
+var Toolbox = require('../index.js').Toolbox;
 var assert = require('assert');
 
 var Animal = Toolbox.Base.extend({
