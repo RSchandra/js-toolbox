@@ -35,7 +35,7 @@ var tests = {
 		});
 		
 	},
-	"Test ajax include": function(done){
+	"Test external include": function(done){
 		renderFile(__dirname + '/examples/ajaxinclude.js.html', {}, function(err, html){
 			assert(err == null);
 			assert(html == '<!Doctype html><body>included from http://localhost:8080/test <p>Hello World!</p></body></html>');
@@ -51,18 +51,23 @@ app.get("/test", function(req, res){
     res.setHeader("Content-Type", "text/html");
     res.end("Hello World!");
 });
-//server everything 
+
+//server everything index.html welcome file
 app.use(function(req, res){
-	res.sendfile(__dirname + req._parsedUrl.path, function(err){
-		if(err){
-			console.log(err);
-			res.send(err.status, err.code);
-		}
-	});
+        res.sendfile(__dirname + req._parsedUrl.path, function(err){
+                if(err){
+                        console.log(err);
+                        res.send(err.status, err.code);
+                }
+        });
 });
 
-//start the server listening for requests
-app.listen(8080, "127.0.0.1");
 
+//set ipaddress from openshift, to command line or to localhost:8080
+var ipaddr = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port = process.env.OPENSHIFT_NODEJS_PORT || parseInt(process.argv.pop()) || 8080;
+
+//start the server listening for requests
+app.listen(port, ipaddr);
 
 new TestRunner(tests).again(0);

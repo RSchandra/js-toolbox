@@ -22,6 +22,14 @@ var RenderFileAsync = Toolbox.Base.extend({
 			this.oOptions.sAfter = "%>";
 		if (typeof this.oOptions.sPrint == 'undefined')
 			this.oOptions.sPrint = "=";
+		if (typeof this.oOptions.sProtocol == 'undefined')
+			this.oOptions.sProtocol = "http";
+		if (typeof this.oOptions.sHost == 'undefined'){
+			//set ipaddress from openshift, to command line or to localhost:8080
+			var ipaddr = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+			var port = process.env.OPENSHIFT_NODEJS_PORT || parseInt(process.argv.pop()) || 8080;
+			this.oOptions.sHost = ipaddr + ':' + port;
+		}
 		this.oOptions.include = jQuery.proxy(this.include, this);
 		this.oOptions.layout = jQuery.proxy(this.layout, this);
 		if (typeof fCallback != 'undefined')
@@ -77,9 +85,15 @@ var RenderFileAsync = Toolbox.Base.extend({
 		}
 	},
 	include : function(sPath) {
-		var sFilePath = path.dirname(this.sPath) + '/' + sPath;
+		var sFilePath = sPath;
+		var sDir = path.dirname(this.sPath.replace(__dirname, ''));
+		if(sPath.indexOf('//') == -1){
+			sFilePath = this.oOptions.sProtocol + '://' + this.oOptions.sHost + sDir + '/' + sPath;
+		}else if(sPath.indexOf('//') == 0){
+			sFilePath = this.oOptions.sProtocol + '://' + sPath;
+		}
 		this.nNesting++;
-		var oRender = new RenderFileAsync(sFilePath, this.oOptions, jQuery.proxy(function(err, html) {
+		var oRender = new RenderFileAsync(sDir + '/' + sPath, this.oOptions, jQuery.proxy(function(err, html) {
 					if (err)
 						this.error(err);
 					this.sHtml += html;
@@ -87,10 +101,7 @@ var RenderFileAsync = Toolbox.Base.extend({
 					if (!this.nNesting)
 						this.parseToken(++this.nCur);
 				}, this));
-		if(sPath.indexOf('//') == -1)
-			fs.readFile(sFilePath, jQuery.proxy(oRender.parseFile, oRender));
-		else
-			jQuery.ajax(sPath)
+		jQuery.ajax(sFilePath)
 			.done(jQuery.proxy(function(html){
 				this.parseFile(null,html);
 			}, oRender))
