@@ -25,7 +25,11 @@ var TestRunner = Toolbox.Base.extend({
 	            this.again (i);
 	        }
 	    }else{
-	    	process.exit();
+	    	var code = 0;
+
+	    	process.on('exit', function() {
+	    	  process.exit(code);
+	    	});
 	    }
 	}
 });
