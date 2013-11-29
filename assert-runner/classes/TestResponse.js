@@ -17,7 +17,11 @@ var TestResponse = Toolbox.Base.extend({
 		 for (var propertyName in oHeader) {
 			    this.sHead += propertyName + " : " + oHeader[propertyName];
 		}
-	}	
+	},
+	setHeader: function(name, value){
+		if(this.sHead != "") this.sHead += "\n";
+		this.sHead += name + ": " + value;
+	}
 });
 
 module.exports.TestResponse = TestResponse;
