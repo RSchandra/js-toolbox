@@ -22,6 +22,11 @@ var tests = {
 				done();
 			});
 			
+		},
+		"Test param": function(){
+			var req = new TestRunner.TestRequest();
+			req.params.test = 'test';
+			assert(req.param('test') == 'test');
 		}
 };
 
