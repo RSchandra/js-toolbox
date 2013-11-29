@@ -25,9 +25,8 @@
   "dependencies": {
     "js-toolbox": "*",
     "assert-runner": "*",
-    "extend": "*",
-    "nodeproxy": "*",
-    "eval": "*"
+    "eval": "*",
+    "express": "*" 
   },
   "scripts": {
 	    "test": "./test.js"

@@ -24,6 +24,8 @@ var TestRunner = Toolbox.Base.extend({
 	            console.log("Passed Test: \"" + this.aKeys[i] + "\" " + ++i + " of " + this.aKeys.length);
 	            this.again (i);
 	        }
+	    }else{
+	    	process.exit();
 	    }
 	}
 });
