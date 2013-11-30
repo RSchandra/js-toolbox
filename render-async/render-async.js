@@ -32,6 +32,7 @@ var RenderFileAsync = Toolbox.Base.extend({
 		}
 		this.oOptions.include = jQuery.proxy(this.include, this);
 		this.oOptions.layout = jQuery.proxy(this.layout, this);
+		this.oOptions.partial = jQuery.proxy(this.partial, this);
 		if (typeof fCallback != 'undefined')
 			this.fCallback = fCallback;
 	},
@@ -109,6 +110,39 @@ var RenderFileAsync = Toolbox.Base.extend({
 	},
 	layout : function(sPath) {
 		this.sLayout = path.dirname(this.sPath) + '/' + sPath;
+	},
+	renderPartial: function(sContents, oCollection){
+		for(var nCollection = 0;  nCollection < oCollection.length; nCollection++){
+			var oRender = new RenderFileAsync(this.sPath, oCollection[nCollection], jQuery.proxy(function(err, html){
+				if(err)this.error(err);
+				this.sHtml += html;
+				if(nCollection == oCollection.length - 1){
+					this.nNesting--;
+					if (!this.nNesting)
+						this.parseToken(++this.nCur);
+					
+				}
+			}, this));
+			oRender.parseFile(null, sContents);
+		}
+	},
+	partial : function(sPath, oCollection){
+		this.nNesting++;
+		var sFilePath = path.dirname(this.sPath) + '/' + sPath;
+		fs.readFile(sFilePath, jQuery.proxy(function(err, sContents){
+			if(err) this.error(err);
+			else{
+				if(typeof oCollection == "string"){
+					jQuery.ajax({url: oCollection, dataType: 'json'})
+					.done(jQuery.proxy(function(oCollection){
+						this.renderPartial(sContents, oCollection);						
+					}, this))
+					.fail(jQuery.proxy(this.error, this));
+				}else{
+					this.renderPartial(sContents, oCollection);
+				}
+			}
+		}, this)); 
 	},
 	error : function(err) {
 		console.log(err);
