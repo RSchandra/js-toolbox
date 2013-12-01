@@ -26,7 +26,8 @@
     "js-toolbox": "*",
     "assert-runner": "*",
     "eval": "*",
-    "express": "*" 
+    "express": "*",
+    "i18n-abide": "*"
   },
   "scripts": {
 	    "test": "./test.js"
