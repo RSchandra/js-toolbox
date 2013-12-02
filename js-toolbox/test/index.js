@@ -51,6 +51,14 @@ var tests = {
     	.fail(function(err){
     		assert(true == false);
     	});
+    },
+    "test of jQuery": function(){
+    	var sTest = jQuery("#testme", "<div id=\"testme\">Rich was here</div>").html();
+    	assert(sTest == "Rich was here");
+    },
+    "test of jQuery no context": function(){
+    	var sTest = jQuery("<div id=\"testme\">Rich was here</div>").find("#testme").html();
+    	assert(sTest == "Rich was here");
     }
 };
 

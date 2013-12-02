@@ -18,7 +18,16 @@ if(typeof require == "undefined"){
 	};
 }else{
 	//then I want to require some extras into node and add them into the namespace under _jQuery
-	module.exports._jQuery = require('cheerio'); 
+	var cheerio = require('cheerio');
+	module.exports._jQuery = function(sSelector, sContext){
+		rc = null;
+		if(typeof sContext == "undefined"){
+			rc = cheerio.load(sSelector).root();
+		}else{
+			rc = cheerio(sSelector, sContext);
+		}
+		return(rc);
+	};
 	module.exports._jQuery.ajax = require('najax');
 	module.exports._jQuery.proxy = require('nodeproxy');
 	var jQuery = {};
