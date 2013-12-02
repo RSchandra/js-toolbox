@@ -1,6 +1,6 @@
 {
   "name": "js-toolbox",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Provides a primitive base class for class-based inheritance for node.js, as well as code to make this available in a browser",
   "keywords": [
     "Node.js",
