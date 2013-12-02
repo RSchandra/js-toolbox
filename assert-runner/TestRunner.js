@@ -25,11 +25,10 @@ var TestRunner = Toolbox.Base.extend({
 	            this.again (i);
 	        }
 	    }else{
-	    	var code = 0;
+	    	   process.nextTick(function() {
+	    	        process.exit(0);       
+	    	    });
 
-	    	process.on('exit', function() {
-	    	  process.exit(code);
-	    	});
 	    }
 	}
 });

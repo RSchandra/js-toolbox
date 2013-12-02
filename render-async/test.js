@@ -41,15 +41,6 @@ var tests = {
 			assert(html == '<!Doctype html><body>included from http://localhost:8080/test <p>Hello World!</p></body></html>');
 			done();
 		});
-	},
-	"Test partial": function(done){
-		renderFile(__dirname + '/examples/partialouter.js.html', {locals: [{test: 1}, {test: 2}, {test: 3}]}, function(err, html){
-			assert(err == null);
-			console.log(html);
-			//assert(html == '<!Doctype html><body>included from http://localhost:8080/test <p>Hello World!</p></body></html>');
-			done();
-		});
-		
 	}
 };
 

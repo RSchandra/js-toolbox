@@ -24,7 +24,8 @@
   "dependencies": {
     "extend": "*",
     "nodeproxy": "*",
-    "najax": "*"
+    "najax": "*",
+    "cheerio": "*"
   },
   "scripts": {
 	    "test": "./test.js"
