@@ -3,6 +3,8 @@
  *
  * also provides shims to run node.js require and module.exports inside a browser
  */
+// a global "document" context for jQuery document is sealed first time it is used in that context
+var oContext = {oDocument:null, bSealed: false};
 
 if(typeof require == "undefined"){
 	// then you will need to have included any dependency already in a script tag
@@ -18,18 +20,26 @@ if(typeof require == "undefined"){
 	};
 }else{
 	//then I want to require some extras into node and add them into the namespace under _jQuery
-	var cheerio = require('cheerio');
-	module.exports._jQuery = function(sSelector, sContext){
+	var cheerio = require('cheerio'), fNodeProxy = require('nodeproxy');
+	module.exports._jQuery = fNodeProxy(function(sSelector, sContext){
 		rc = null;
 		if(typeof sContext == "undefined"){
-			rc = cheerio.load(sSelector).root();
+			if(typeof sSelector == "string" && sSelector.indexOf('<') == -1){
+				if(sSelector == 'document') rc = this.oDocument;
+				else rc = this.oDocument.find(sSelector);
+				// first time we use it in this context we don't allow the document to change
+				this.bSealed = true;
+			}else{
+				rc = cheerio.load(sSelector).root();				
+				if(!this.bSealed) this.oDocument = rc;
+			} 
 		}else{
 			rc = cheerio(sSelector, sContext);
 		}
 		return(rc);
-	};
+	}, oContext);
 	module.exports._jQuery.ajax = require('najax');
-	module.exports._jQuery.proxy = require('nodeproxy');
+	module.exports._jQuery.proxy = fNodeProxy;
 	var jQuery = {};
 	module.exports._jQuery.extend = jQuery.extend = require('extend');
 }

@@ -59,6 +59,11 @@ var tests = {
     "test of jQuery no context": function(){
     	var sTest = jQuery("<div id=\"testme\">Rich was here</div>").find("#testme").html();
     	assert(sTest == "Rich was here");
+    },
+    "test of jQuery global": function(){
+    	jQuery("<div id=\"testme\">Rob was here</div>");
+    	var sTest = jQuery("#testme").html();
+    	assert(sTest == "Rob was here");
     }
 };
 
