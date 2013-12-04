@@ -29,9 +29,11 @@ if(typeof require == "undefined"){
 				else rc = this.oDocument.find(sSelector);
 				// first time we use it in this context we don't allow the document to change
 				this.bSealed = true;
-			}else{
-				rc = cheerio.load(sSelector).root();				
+			}else if(typeof sSelector == "string"){
+				rc = cheerio.load(sSelector.replace(/<!\[CDATA\[([^\]]+)]\]>/ig, "$1")).root();				
 				if(!this.bSealed) this.oDocument = rc;
+			}else{
+				rc = cheerio(sSelector);
 			} 
 		}else{
 			rc = cheerio(sSelector, sContext);

@@ -64,6 +64,22 @@ var tests = {
     	jQuery("<div id=\"testme\">Rob was here</div>");
     	var sTest = jQuery("#testme").html();
     	assert(sTest == "Rob was here");
+    },
+    "test of jQuery getting and parsing xml": function(done){
+    	jQuery.ajax("https://groups.google.com/forum/feed/fancybox/msgs/rss_v2_0.xml?num=50")
+    	.done(function(xml){
+    		var aItems = jQuery(xml).find("item");
+    		aItems.each(function(){
+    			var oItem = jQuery(this);
+    			var sTitle = oItem.find("title").text();
+    			//console.log(sTitle);
+    			assert(sTitle != "");
+    		});
+    		done();
+    	})
+    	.fail(function(err){
+    		assert(err == null);
+    	});
     }
 };
 
