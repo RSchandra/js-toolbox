@@ -1,6 +1,6 @@
 {
   "name": "render-async",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "renders a template, possibly asynchronously with an object",
   "keywords": [
     "Node.js",
@@ -34,5 +34,5 @@
   },
   "devDependencies": {},
   "bundleDependencies": [],
-  "main": "TestRunner.js"
+  "main": "render-async.js"
 }
