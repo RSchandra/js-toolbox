@@ -1,0 +1,37 @@
+{
+  "name": "mariadb-admin",
+  "version": "1.0.0",
+  "description": "allows for simple SQL editing and viewing of results using mysql2",
+  "keywords": [
+    "Node.js",
+    "mariadb",
+    "express",
+    "editarea"
+  ],
+  "author": {
+    "name": "Rich Hildred",
+    "email": "rhildred@gmail.com",
+    "url": "http://syndicateme.net/"
+  },
+  "homepage": "https://github.com/rhildred/js-toolbox/tree/master/render-async",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhildred/js-toolbox.git"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "js-toolbox": "*",
+    "assert-runner": "*",
+    "mysql2": "*",
+    "render-async": "*"
+  },
+  "scripts": {
+	    "test": "./test.js"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "main": "TestRunner.js"
+}
