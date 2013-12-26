@@ -40,7 +40,7 @@ if(typeof require == "undefined"){
 		}
 		return(rc);
 	}, oContext);
-	module.exports._jQuery.ajax = require('najax');
+	module.exports._jQuery.ajax = require('./lib/najax');
 	module.exports._jQuery.proxy = fNodeProxy;
 	var jQuery = {};
 	module.exports._jQuery.extend = jQuery.extend = require('extend');
