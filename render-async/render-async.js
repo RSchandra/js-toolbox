@@ -23,12 +23,6 @@ module.exports.express = jQuery.proxy(function(oOptions){
 	}catch(e){
 		console.log("no i18n support " + e.toString());
 	}
-	if(typeof this.oOptions.welcomeFile != "undefined"){
-		this.oOptions.app.get('/', jQuery.proxy(function(req, res){
-			req._parsedUrl.path = "/" +  this.oOptions.welcomeFile;
-			module.exports.renderAsync(req, res);
-		}, this));
-	}
 	return this.oOptions.app;
 }, renderAsync);
 
@@ -44,6 +38,8 @@ module.exports.renderAsync = jQuery.proxy(function(req, res) {
 	var sPath = req.app.get('views') + req._parsedUrl.path;
 	this.oOptions.gettext = req.gettext;
 	this.oOptions.lang = req.lang;
+	this.oOptions.sHost = req.headers['host'];
+	this.oOptions.sCookie = req.headers['cookie'];
 	//internationalize
 	var slang_dir = "ltr";
 	try
@@ -63,14 +59,20 @@ module.exports.renderAsync = jQuery.proxy(function(req, res) {
 	fs.readFile(sPath, jQuery.proxy(oRender.parseFile, oRender));
 }, renderAsync);
 
-module.exports.webServer = function(req, res){
-	res.sendfile(req.app.get('views') + req._parsedUrl.path, function(err){
-		if(err){
-			console.log(err);
-			res.send(err.status, err.code);
-		}
-	});
-};
+module.exports.webServer = jQuery.proxy(function(req, res){
+	var sPath = req._parsedUrl.path; 
+	if( sPath == '/' && typeof this.oOptions.welcomeFile != "undefined"){
+		req._parsedUrl.path = '/' + this.oOptions.welcomeFile;
+		module.exports.renderAsync(req, res); 
+	}else{
+		res.sendfile(req.app.get('views') + sPath, function(err){
+			if(err){
+				console.log(err);
+				res.send(err.status, err.code);
+			}
+		});		
+	}
+}, renderAsync);
 
 var RenderFileAsync = Toolbox.Base.extend({
 	sPath : null,
@@ -132,7 +134,10 @@ var RenderFileAsync = Toolbox.Base.extend({
 		var oRender = new RenderFileAsync(sDir + sPath, this.oOptions, 
 				jQuery.proxy(this.render, this));
 		// get the resource
-		jQuery.ajax(sFilePath)
+		jQuery.ajax({url:sFilePath,
+			headers:{
+				Cookie: this.oOptions.sCookie
+			}})
 			.done(jQuery.proxy(function(html){
 				this.parseFile(null,html);
 			}, oRender))
@@ -157,7 +162,10 @@ var RenderFileAsync = Toolbox.Base.extend({
 					}else if(oCollection.indexOf('//') == 0){
 						oCollection = this.oOptions.sProtocol + ':' + oCollection;
 					}
-					jQuery.ajax({url: oCollection, dataType: 'json'})
+					jQuery.ajax({url: oCollection, dataType: 'json',
+						headers:{
+							Cookie: this.oOptions.sCookie
+						}})
 					.done(jQuery.proxy(function(oCollection){
 						this.renderPartial(sContents, oCollection);						
 					}, this))
@@ -184,7 +192,10 @@ var RenderFileAsync = Toolbox.Base.extend({
 			}else if(sPath.indexOf('http') == -1){
 				sPath = this.oOptions.sProtocol + '://' + this.oOptions.sHost + sPath;
 			}
-			jQuery.ajax(sPath)
+			jQuery.ajax({url:sPath,
+				headers:{
+					Cookie: this.oOptions.sCookie
+				}})
 			.done(jQuery.proxy(this.renderDone, this))
 			.fail(jQuery.proxy(this.renderError, this));
 		}

@@ -63,6 +63,14 @@ var tests = {
 		});
 		
 	},
+	"Test partial with Ajax and only 1 result": function(done){
+		renderFile(__dirname + '/examples/partialouter3.js.html', {}, function(err, html){
+			assert(err == null);
+			assert(html == '<ul><li>1</li></ul>');
+			done();
+		});
+		
+	},
 	"Test link with local resource": function(done){
 		renderFile(__dirname + '/examples/link.js.html', {}, function(err, html){
 			assert(err == null);
@@ -190,6 +198,11 @@ app.get("/test", function(req, res){
 app.get("/test2", function(req, res){
     res.setHeader("Content-Type", "application/json");
     res.end("[{\"test\": 3}, {\"test\": 4}]");
+});
+
+app.get("/test3", function(req, res){
+    res.setHeader("Content-Type", "application/json");
+    res.end("[{\"test\": 1}]");
 });
 
 

@@ -1,19 +1,19 @@
 {
-  "name": "render-async",
-  "version": "1.0.2",
-  "description": "renders a template, possibly asynchronously with an object",
+  "name": "google-login",
+  "version": "1.0.0",
+  "description": "This is a login and Current User object that can be put in your express namespace to verify a user",
   "keywords": [
     "Node.js",
-    "render",
+    "mariadb",
     "express",
-    "template"
+    "editarea"
   ],
   "author": {
     "name": "Rich Hildred",
     "email": "rhildred@gmail.com",
     "url": "http://syndicateme.net/"
   },
-  "homepage": "https://github.com/rhildred/js-toolbox/tree/master/render-async",
+  "homepage": "https://github.com/rhildred/js-toolbox/tree/master/google-login",
   "repository": {
     "type": "git",
     "url": "https://github.com/rhildred/js-toolbox.git"
@@ -25,14 +25,15 @@
   "dependencies": {
     "js-toolbox": "*",
     "assert-runner": "*",
-    "eval": "*",
+    "render-async": "*",
+    "googleapis": "*",
     "express": "*",
-    "i18n-abide": "*"
+    "node-uuid": "*"
   },
   "scripts": {
 	    "test": "./test.js"
   },
   "devDependencies": {},
   "bundleDependencies": [],
-  "main": "render-async.js"
+  "main": "GoogleLogin.js"
 }

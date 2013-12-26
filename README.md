@@ -1,7 +1,7 @@
 js-toolbox Node Modules
 =======================
 
-This is currently 3 npm modules that I have found useful in my community college javascript course.
+This is currently 4 npm modules that I have found useful in my community college javascript course.
 
 [js-toolbox](js-toolbox)
 ----------
@@ -16,4 +16,9 @@ Based on Gabriel Llamas' answer to [this stack overflow question.](http://stacko
 [render-async](render-async)
 -------------
 
-The start of a framework for progressive enhancement. Without repeating oneself you can have pages that look good to  a crawler or a person without javascript in their browser as well as being single page apps if javascript is available. 
+The start of a framework for progressive enhancement. Without repeating oneself you can have pages that look good to  a crawler or a person without javascript in their browser as well as being single page apps if javascript is available.
+
+[google-login](google-login)
+----------------------------
+
+Let Google handle user authentication using Oauth2. When a current user is established your logic can take over.
