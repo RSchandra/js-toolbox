@@ -54,7 +54,13 @@ module.exports.renderAsync = jQuery.proxy(function(req, res) {
 	this.oOptions.lang_dir = slang_dir;
 	this.oOptions["__"] = req.gettext;
 	var oRender = new RenderFileAsync(sPath, this.oOptions, function(err, html){
-		if(!err) res.end(html);
+		if(err){
+			console.log(err);
+			res.send(err.status, err.code);
+		}else{
+			res.setHeader("Content-Type", "text/html");
+			res.end(html);
+		}
 	});
 	fs.readFile(sPath, jQuery.proxy(oRender.parseFile, oRender));
 }, renderAsync);
