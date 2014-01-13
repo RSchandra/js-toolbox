@@ -26,6 +26,13 @@ module.exports.express = jQuery.proxy(function(oOptions){
 		  locale_on_url: true
 		}));
 		this.oOptions.app.use(this.oOptions.app.router);
+		//add a route for environment variables
+		this.oOptions.app.get("/process.env.OPENSHIFT_MYSQL_DB_HOST", function(req, res){
+			res.setHeader("Content-Type", "application/json");
+			var oHost = {OPENSHIFT_MYSQL_DB_HOST: process.env.OPENSHIFT_MYSQL_DB_HOST};
+			console.log(oHost);
+			res.end(JSON.stringify(oHost));
+		});
 	}catch(e){
 		console.log("no i18n support " + e.toString());
 	}
