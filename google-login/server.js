@@ -1,19 +1,10 @@
-var TestRunner = require('assert-runner'),
-assert = require('assert'),
-renderAsync = require('render-async'),
+var renderAsync = require('render-async'),
 jQuery = require('js-toolbox')._jQuery,
-express = require('express'),
-uuid = require('node-uuid'),
 renderFile = renderAsync.__express,
 GoogleLogin = require('./GoogleLogin.js');
 
 //now we need a server for this so that we can test include
 var app= renderAsync.express({welcomeFile: "index.js.html"});
-app.use(express.bodyParser());
-// these must be in this order
-app.use(express.cookieParser());
-app.use(express.session({secret:uuid.v4()}));
-app.use(app.router);
 
 app.set('views', __dirname + '/public');
 

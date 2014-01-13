@@ -1,5 +1,6 @@
 var Toolbox = require('js-toolbox').Toolbox, jQuery = require('js-toolbox')._jQuery, i18n = require('i18n-abide'),
-fs = require('fs'), _eval = require('eval'), path = require('path'), express = require('express');
+fs = require('fs'), _eval = require('eval'), path = require('path'), uuid = require('node-uuid'),
+express = require('express');
 
 var AsyncOptions = Toolbox.Base.extend({oOptions:{app: null}});
 
@@ -9,6 +10,10 @@ module.exports.express = jQuery.proxy(function(oOptions){
 	if(typeof oOptions != "undefined") jQuery.extend(this.oOptions, oOptions);
 	this.oOptions.app = express();
 	try{
+		this.oOptions.app.use(express.bodyParser());
+		// these must be in this order
+		this.oOptions.app.use(express.cookieParser());
+		this.oOptions.app.use(express.session({secret:uuid.v4()}));
 		// find out what i18n directories we have and therefore what languages are supported
 		var aSupported = fs.readdirSync("i18n");
 		// en-US is alway supported
@@ -20,6 +25,7 @@ module.exports.express = jQuery.proxy(function(oOptions){
 		  translation_type: 'key-value-json',
 		  locale_on_url: true
 		}));
+		this.oOptions.app.use(this.oOptions.app.router);
 	}catch(e){
 		console.log("no i18n support " + e.toString());
 	}

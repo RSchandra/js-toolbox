@@ -1,6 +1,6 @@
 {
   "name": "google-login",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a login and Current User object that can be put in your express namespace to verify a user",
   "keywords": [
     "Node.js",
@@ -26,9 +26,7 @@
     "js-toolbox": "*",
     "assert-runner": "*",
     "render-async": "*",
-    "googleapis": "*",
-    "express": "*",
-    "node-uuid": "*"
+    "googleapis": "*"
   },
   "scripts": {
 	    "test": "./test.js"

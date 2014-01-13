@@ -1,6 +1,6 @@
 {
   "name": "render-async",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "renders a template, possibly asynchronously with an object",
   "keywords": [
     "Node.js",
@@ -27,7 +27,8 @@
     "assert-runner": "*",
     "eval": "*",
     "express": "*",
-    "i18n-abide": "*"
+    "i18n-abide": "*",
+    "node-uuid": "*"
   },
   "scripts": {
 	    "test": "./test.js"
