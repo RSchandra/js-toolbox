@@ -22,3 +22,8 @@ The start of a framework for progressive enhancement. Without repeating oneself 
 ----------------------------
 
 Let Google handle user authentication using Oauth2. When a current user is established your logic can take over.
+
+[mysql2-openshift](mysql2-openshift)
+------------------------------------
+
+Simple wrapper around the real mysql2 with openshift environment variables
