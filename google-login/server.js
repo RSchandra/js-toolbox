@@ -13,6 +13,7 @@ app.set('views', __dirname + '/public');
 var oGoogleLogin = new GoogleLogin();
 app.get('/login', jQuery.proxy(oGoogleLogin.login, oGoogleLogin));
 //don't need to proxy this because the currentUser is in the session 
+app.get('/logout', oGoogleLogin.logout);
 app.get('/currentUser', oGoogleLogin.currentUser);
 
 //redirect to login page unless we have a session with a current user
@@ -20,10 +21,10 @@ app.use(function(req, res, next){
 	if((req._parsedUrl.path == '/' || req._parsedUrl.path.indexOf('html') != -1) 
 			&& (!req.session || !req.session.profile))
 	{
+		// then we are going for an html file without logged in user
 		req._parsedUrl.path = '/login.js.html';
 		renderAsync.renderAsync(req, res); 
 	}else{
-		console.log(req.session.profile);
 		next();
 	}
 });

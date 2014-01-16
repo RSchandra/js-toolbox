@@ -4,10 +4,15 @@ googleapis = require('googleapis'),
 OAuth2Client = googleapis.OAuth2Client;
 
 var GoogleLogin = Toolbox.Base.extend({
-	oCreds : require('../../data/google.json'),
+	oCreds : null, 
 	oauth2Client : null,
 	sCode: null,
 	constructor : function() {
+		try{
+			this.oCreds = require('../../data/google.json');
+		}catch(e){
+			this.oCreds = require('./google.json');
+		}
 		return this;
 	},
 	login : function(req, res) {
@@ -60,7 +65,7 @@ var GoogleLogin = Toolbox.Base.extend({
 					});
 					res.end();					
 				}
-		}
+		};
 		// start by getting token
 		this.oauth2Client.getToken(this.sCode, aCallbacks.getProfile);
 	},
@@ -73,6 +78,13 @@ var GoogleLogin = Toolbox.Base.extend({
 			res.end('[' + JSON.stringify(req.session.profile) + ']');
 		}
 		
+	},
+	logout: function(req, res){
+		req.session.profile = null;
+		res.writeHead(302,{
+			'Location' : "/"
+		});
+		res.end();							
 	}
 });
 
