@@ -1,6 +1,6 @@
 {
   "name": "google-login",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This is a login and Current User object that can be put in your express namespace to verify a user",
   "keywords": [
     "Node.js",

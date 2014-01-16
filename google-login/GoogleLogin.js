@@ -9,9 +9,16 @@ var GoogleLogin = Toolbox.Base.extend({
 	sCode: null,
 	constructor : function() {
 		try{
-			this.oCreds = require('../../data/google.json');
+			//we are in test
+			this.oCreds = require(__dirname + '/../../data/google.json');
 		}catch(e){
-			this.oCreds = require('./google.json');
+			try{
+				//we are in node_modules and the creds are in data
+				this.oCreds = require(__dirname + '/../../../data/google.json');				
+			}catch(e){
+				//we are in node_modules and the creds are in the cwd
+				this.oCreds = require(__dirname + '/../../google.json');				
+			}
 		}
 		return this;
 	},
