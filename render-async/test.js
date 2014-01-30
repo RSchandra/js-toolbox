@@ -186,7 +186,25 @@ var tests = {
 		});
 
 	},
-
+	"do a post and make sure we get our variables": function(done){
+		jQuery.ajax({
+			url: "http://localhost:8080/test4",
+			type:"post",
+			headers:{
+				"Content-type": "application/x-www-form-urlencoded"
+			},
+			data: "test1=test2&test3=test4",
+			dataType: "json"
+		})
+		.done(function(html){
+			console.log(html);
+			done();
+		}).
+		fail(function(err){
+			console.log(err);
+			assert(err == false);
+		});
+	}
 
 };
 
@@ -203,6 +221,11 @@ app.get("/test2", function(req, res){
 app.get("/test3", function(req, res){
     res.setHeader("Content-Type", "application/json");
     res.end("[{\"test\": 1}]");
+});
+
+app.post("/test4", function(req, res){
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(req.params));
 });
 
 
