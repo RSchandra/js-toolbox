@@ -11,6 +11,7 @@ module.exports.express = jQuery.proxy(function(oOptions){
 	this.oOptions.app = express();
 	try{
 		this.oOptions.app.use(express.bodyParser());
+		//this.oOptions.app.use(require('connect').bodyParser());
 		// these must be in this order
 		this.oOptions.app.use(express.cookieParser());
 		this.oOptions.app.use(express.session({secret:uuid.v4()}));
