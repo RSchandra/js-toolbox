@@ -1,6 +1,6 @@
 {
   "name": "render-async",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "renders a template, possibly asynchronously with an object",
   "keywords": [
     "Node.js",
